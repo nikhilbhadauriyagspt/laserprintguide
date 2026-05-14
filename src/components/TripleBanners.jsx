@@ -1,45 +1,36 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 // Images
-import mid1 from '../assets/middle-imges/1.avif';
-import mid2 from '../assets/middle-imges/2.avif';
-import mid3 from '../assets/middle-imges/3.avif';
+import mid1 from "../assets/middle-imges/1.avif";
+import mid2 from "../assets/middle-imges/2.avif";
 
 const banners = [
-  { id: 1, image: mid2 },
-  { id: 2, image: mid1 },
-  { id: 3, image: mid3 }
+  { id: 1, image: mid1 },
+  { id: 2, image: mid2 },
 ];
 
 export default function TripleBanners() {
   return (
-    <section className="w-full bg-white py-16 px-4 md:px-8">
-      <div className="max-w-[1820px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {banners.map((banner, index) => (
-            <motion.div
+    <section className="w-full bg-white px-4 py-10 md:px-8">
+      <div className="mx-auto max-w-[1820px]">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          {banners.map((banner) => (
+            <Link
               key={banner.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="relative h-[250px] sm:h-[280px] lg:h-[200px] xl:h-[220px] 2xl:h-[280px] rounded-[2.5rem] overflow-hidden group"
+              to="/shop"
+              className="block w-full overflow-hidden"
             >
-              <Link to="/shop" className="block w-full h-full">
-                <img
-                  src={banner.image}
-                  alt={`Banner ${banner.id}`}
-                  width="600"
-                  height="300"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                {/* Subtle Overlay */}
-                <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500" />
-              </Link>
-            </motion.div>
+              <img
+                src={banner.image}
+                alt={`Shop banner ${banner.id}`}
+                width="900"
+                height="350"
+                loading="lazy"
+                decoding="async"
+                className="block w-full h-auto object-contain"
+              />
+            </Link>
           ))}
         </div>
       </div>

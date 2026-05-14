@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://printomaniac.com/sitemap.xml
+Sitemap: https://laserprintguide.co/sitemap.xml

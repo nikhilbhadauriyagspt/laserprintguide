@@ -44,9 +44,9 @@ export default function SEO({ title, description, keywords, schemaType = "Websit
     const schemaData = {
       "@context": "https://schema.org",
       "@type": schemaType === "Product" ? "Product" : "Organization",
-      "name": "Printomaniac",
-      "url": "https://printomaniac.com",
-      "logo": "https://printomaniac.com/logo/logo.png",
+      "name": "Laser Print Guide",
+      "url": "https://laserprintguide.co",
+      "logo": "https://laserprintguide.co/logo/logo.png",
       "description": finalDesc,
       "address": {
         "@type": "PostalAddress",

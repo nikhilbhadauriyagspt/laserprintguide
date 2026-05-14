@@ -1,22 +1,22 @@
-# Printomaniac
+# Laser Print Guide
 
 > Quality destination for high-performance printers and reliable printer accessories.
 
 ## Overview
-Printomaniac is a premier online retailer specializing in precision printing hardware, including laser printers, inkjet printers, and professional workstations. We provide nationwide delivery across the USA.
+Laser Print Guide is a premier online retailer specializing in precision printing hardware, including laser printers, inkjet printers, and professional workstations. We provide nationwide delivery across the USA.
 
 ## Key Information
-- **Website:** https://printomaniac.com
+- **Website:** https://laserprintguide.co
 - **Core Products:** All-in-One Printers, Laser Printers, Inkjet Printers, Thermal Printers, Large Format Printers, and Accessories.
 - **Service Area:** Nationwide USA
-- **Support Email:** info@printomaniac.com
+- **Support Email:** info@laserprintguide.co
 
 ## Pages
-- [Home](https://printomaniac.com/) - Overview of top products and featured collections.
-- [Shop](https://printomaniac.com/shop) - Full product catalog with filtering by category and brand.
-- [About Us](https://printomaniac.com/about) - Our mission and commitment to quality printing solutions.
-- [FAQ](https://printomaniac.com/faq) - Common questions about shipping, warranty, and orders.
-- [Contact](https://printomaniac.com/contact) - Support and inquiry form.
+- [Home](https://laserprintguide.co/) - Overview of top products and featured collections.
+- [Shop](https://laserprintguide.co/shop) - Full product catalog with filtering by category and brand.
+- [About Us](https://laserprintguide.co/about) - Our mission and commitment to quality printing solutions.
+- [FAQ](https://laserprintguide.co/faq) - Common questions about shipping, warranty, and orders.
+- [Contact](https://laserprintguide.co/contact) - Support and inquiry form.
 
 ## Technology Stack
 - **Frontend:** React with Vite

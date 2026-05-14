@@ -1,65 +1,94 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import SEO from '@/components/SEO';
-import { useCart } from '../context/CartContext';
-import Heart from 'lucide-react/dist/esm/icons/heart';
-import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
-import Truck from 'lucide-react/dist/esm/icons/truck';
-import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check';
-import RefreshCcw from 'lucide-react/dist/esm/icons/refresh-ccw';
-import Loader2 from 'lucide-react/dist/esm/icons/loader-2';
-import Plus from 'lucide-react/dist/esm/icons/plus';
-import Minus from 'lucide-react/dist/esm/icons/minus';
-import CheckCircle from 'lucide-react/dist/esm/icons/check-circle';
-import ShoppingBag from 'lucide-react/dist/esm/icons/shopping-bag';
-import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right';
-import LayoutGrid from 'lucide-react/dist/esm/icons/layout-grid';
-import { motion, AnimatePresence } from 'framer-motion';
-import API_BASE_URL from '../config';
-import { cn } from '../lib/utils';
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+
+import SEO from "@/components/SEO";
+
+import { useCart } from "../context/CartContext";
+
+import Heart from "lucide-react/dist/esm/icons/heart";
+import ChevronRight from "lucide-react/dist/esm/icons/chevron-right";
+import Truck from "lucide-react/dist/esm/icons/truck";
+import ShieldCheck from "lucide-react/dist/esm/icons/shield-check";
+import RefreshCcw from "lucide-react/dist/esm/icons/refresh-ccw";
+import Loader2 from "lucide-react/dist/esm/icons/loader-2";
+import Plus from "lucide-react/dist/esm/icons/plus";
+import Minus from "lucide-react/dist/esm/icons/minus";
+import CheckCircle from "lucide-react/dist/esm/icons/check-circle";
+import ShoppingBag from "lucide-react/dist/esm/icons/shopping-bag";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+
+import { motion, AnimatePresence } from "framer-motion";
+
+import API_BASE_URL from "../config";
+import { cn } from "../lib/utils";
 
 export default function ProductDetail() {
-  const { addToCart, toggleWishlist, isInWishlist, openCartDrawer } = useCart();
-  const [isAdded, setIsAdded] = useState(false);
+  const {
+    addToCart,
+    toggleWishlist,
+    isInWishlist,
+    openCartDrawer,
+  } = useCart();
+
   const { slug } = useParams();
 
   const [product, setProduct] = useState(null);
+
   const [relatedProducts, setRelatedProducts] = useState([]);
+
   const [loading, setLoading] = useState(true);
+
   const [quantity, setQuantity] = useState(1);
+
   const [activeImage, setActiveImage] = useState(0);
+
+  const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = () => {
     addToCart(product, quantity);
+
     setIsAdded(true);
+
     openCartDrawer();
+
     setTimeout(() => setIsAdded(false), 2000);
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
     setLoading(true);
 
     fetch(`${API_BASE_URL}/products/${slug}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === 'success') {
+        if (data.status === "success") {
           setProduct(data.data);
 
           const categories = data.data.categories || [];
-          const categorySlug = categories.length > 0 ? categories[0].slug : '';
+
+          const categorySlug =
+            categories.length > 0 ? categories[0].slug : "";
 
           let fetchUrl = `${API_BASE_URL}/products?limit=10`;
-          if (categorySlug) fetchUrl += `&category=${categorySlug}`;
+
+          if (categorySlug) {
+            fetchUrl += `&category=${categorySlug}`;
+          }
 
           fetch(fetchUrl)
             .then((res) => res.json())
             .then((relData) => {
-              if (relData.status === 'success') {
-                setRelatedProducts(relData.data.filter((p) => p.id !== data.data.id));
+              if (relData.status === "success") {
+                setRelatedProducts(
+                  relData.data.filter(
+                    (p) => p.id !== data.data.id
+                  )
+                );
               }
             });
         }
+
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -67,9 +96,15 @@ export default function ProductDetail() {
 
   const getImages = (images) => {
     try {
-      const imgs = typeof images === 'string' ? JSON.parse(images) : images;
+      const imgs =
+        typeof images === "string"
+          ? JSON.parse(images)
+          : images;
+
       return Array.isArray(imgs)
-        ? imgs.map((img) => (img.startsWith('http') ? img : `/${img}`))
+        ? imgs.map((img) =>
+            img.startsWith("http") ? img : `/${img}`
+          )
         : [];
     } catch (e) {
       return [];
@@ -78,21 +113,33 @@ export default function ProductDetail() {
 
   const getImagePath = (images) => {
     try {
-      const imgs = typeof images === 'string' ? JSON.parse(images) : images;
+      const imgs =
+        typeof images === "string"
+          ? JSON.parse(images)
+          : images;
+
       if (Array.isArray(imgs) && imgs.length > 0) {
         const img = imgs[0];
-        return img.startsWith('http') ? img : `/${img}`;
+
+        return img.startsWith("http")
+          ? img
+          : `/${img}`;
       }
     } catch (e) {}
-    return 'https://via.placeholder.com/400x400?text=Product';
+
+    return "https://via.placeholder.com/500x500?text=Product";
   };
 
   if (loading) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-white font-['Poppins']">
-        <Loader2 className="h-10 w-10 animate-spin text-blue-800 mb-4" strokeWidth={1.5} />
-        <p className="text-[11px] font-black text-gray-400 uppercase tracking-[0.3em]">
-          Fetching Product
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[#f7f8fb]">
+        <Loader2
+          className="mb-5 h-10 w-10 animate-spin text-blue-700"
+          strokeWidth={1.5}
+        />
+
+        <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+          Loading Product
         </p>
       </div>
     );
@@ -100,184 +147,238 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-white px-6 text-center font-['Poppins']">
-        <div className="mb-8 w-20 h-20 rounded-3xl bg-gray-50 flex items-center justify-center border border-gray-100 shadow-sm">
-          <ShoppingBag size={34} className="text-gray-300" />
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[#f7f8fb] px-6 text-center">
+        <div className="mb-8 flex h-24 w-24 items-center justify-center bg-blue-50 text-blue-700">
+          <ShoppingBag size={38} />
         </div>
-        <h2 className="text-[32px] font-black text-slate-900 mb-4">Product Not Found</h2>
+
+        <h2 className="text-[36px] font-semibold tracking-tight text-slate-950">
+          Product Not Found
+        </h2>
+
         <Link
           to="/shop"
-          className="inline-flex h-14 items-center gap-2 rounded-2xl bg-blue-800 px-8 text-[13px] font-black uppercase tracking-widest text-white transition-all shadow-xl shadow-blue-100"
+          className="mt-8 flex h-14 items-center justify-center gap-3 bg-slate-950 px-8 text-[14px] font-medium text-white transition hover:bg-blue-700"
         >
-          Return to Shop <ArrowRight size={18} />
+          Return To Shop
+          <ArrowRight size={17} />
         </Link>
       </div>
     );
   }
 
   const images = getImages(product.images);
+
   const mainImage =
-    images.length > 0 ? images[activeImage] : 'https://via.placeholder.com/600x600?text=No+Image';
+    images.length > 0
+      ? images[activeImage]
+      : "https://via.placeholder.com/600x600?text=No+Image";
 
   return (
-    <div className="bg-[#fcfdfe] min-h-screen pt-28 pb-20">
+    <div className="bg-[#f7f8fb] pt-28 pb-20">
       <SEO
-        title={`${product.name} | US Printer Store`}
+        title={`${product.name} |  Laser Print Guide`}
         description={product.description?.substring(0, 160)}
       />
 
-      <div className="max-w-[1820px] mx-auto px-6 md:px-10 lg:px-16">
-        {/* --- MINIMAL BREADCRUMB --- */}
-        <div className="flex items-center gap-2 text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-10 overflow-hidden whitespace-nowrap">
-          <Link to="/" className="hover:text-blue-800 transition-colors shrink-0">Home</Link>
-          <ChevronRight size={12} className="shrink-0 text-slate-400" />
-          <Link to="/shop" className="hover:text-blue-800 transition-colors shrink-0">Catalog</Link>
-          <ChevronRight size={12} className="shrink-0 text-slate-400" />
-          <span className="text-blue-800 truncate">{product.name}</span>
+      <div className="mx-auto max-w-[1750px] px-4 md:px-8 lg:px-10">
+        {/* BREADCRUMB */}
+        <div className="mb-10 flex items-center gap-2 overflow-hidden whitespace-nowrap text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+          <Link
+            to="/"
+            className="transition hover:text-blue-700"
+          >
+            Home
+          </Link>
+
+          <ChevronRight size={13} />
+
+          <Link
+            to="/shop"
+            className="transition hover:text-blue-700"
+          >
+            Shop
+          </Link>
+
+          <ChevronRight size={13} />
+
+          <span className="truncate text-blue-700">
+            {product.name}
+          </span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-          
-          {/* --- LEFT: GALLERY --- */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="relative aspect-square bg-white rounded-[3rem] border border-slate-100 flex items-center justify-center p-12 md:p-20 overflow-hidden group">
-              {/* Soft Blue Glow */}
-              <div className="absolute inset-0 bg-blue-50/30 rounded-full blur-[80px] scale-75 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-              
+        {/* MAIN */}
+        <div className="grid grid-cols-1 gap-12 xl:grid-cols-[700px_minmax(0,1fr)] xl:gap-20">
+          {/* LEFT */}
+          <div>
+            {/* MAIN IMAGE */}
+            <div className="relative flex aspect-square items-center justify-center overflow-hidden bg-white p-10 shadow-[0_18px_55px_rgba(15,23,42,0.06)] md:p-16">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={activeImage}
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.05 }}
-                  transition={{ duration: 0.4 }}
+                  exit={{ opacity: 0, scale: 1.04 }}
+                  transition={{ duration: 0.3 }}
                   src={mainImage}
                   alt={product.name}
-                  className="relative z-10 max-h-full max-w-full object-contain transition-transform duration-1000 group-hover:scale-110"
+                  className="max-h-full max-w-full object-contain"
                 />
               </AnimatePresence>
 
-              {/* Heart Toggle */}
+              {/* WISHLIST */}
               <button
                 onClick={() => toggleWishlist(product)}
-                aria-label={isInWishlist(product.id) ? "Remove from wishlist" : "Add to wishlist"}
                 className={cn(
-                  'absolute top-8 right-8 w-12 h-12 rounded-2xl flex items-center justify-center border transition-all duration-500 shadow-sm backdrop-blur-md',
+                  "absolute right-6 top-6 flex h-12 w-12 items-center justify-center transition",
                   isInWishlist(product.id)
-                    ? 'bg-red-500 border-red-500 text-white'
-                    : 'bg-white/80 border-white text-slate-300 hover:text-red-500 hover:bg-white'
+                    ? "bg-red-500 text-white"
+                    : "bg-white text-slate-400 shadow-sm hover:text-red-500"
                 )}
               >
-                <Heart size={20} fill={isInWishlist(product.id) ? 'currentColor' : 'none'} />
+                <Heart
+                  size={20}
+                  fill={
+                    isInWishlist(product.id)
+                      ? "currentColor"
+                      : "none"
+                  }
+                />
               </button>
             </div>
 
-            {/* Thumbnails Grid */}
+            {/* THUMBNAILS */}
             {images.length > 1 && (
-              <div className="flex flex-wrap gap-4 px-2">
+              <div className="mt-5 flex flex-wrap gap-4">
                 {images.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImage(idx)}
                     className={cn(
-                      'w-20 h-20 rounded-2xl border-2 transition-all p-3 bg-white flex items-center justify-center',
+                      "flex h-24 w-24 items-center justify-center bg-white p-3 transition",
                       activeImage === idx
-                        ? 'border-blue-800 scale-105 shadow-lg shadow-blue-900/5'
-                        : 'border-slate-50 hover:border-blue-200'
+                        ? "border-2 border-blue-700"
+                        : "border border-slate-100 hover:border-blue-200"
                     )}
                   >
-                    <img src={img} alt="" className="max-h-full max-w-full object-contain" />
+                    <img
+                      src={img}
+                      alt=""
+                      className="max-h-full max-w-full object-contain"
+                    />
                   </button>
                 ))}
               </div>
             )}
           </div>
 
-          {/* --- RIGHT: PRODUCT CONTENT --- */}
-          <div className="lg:col-span-6 space-y-10">
-            <div className="space-y-4">
-              <span className="text-blue-800 text-[10px] font-black uppercase tracking-[0.3em] block">Certified Hardware</span>
-              <h1 className="text-[34px] md:text-[44px]  text-slate-950 leading-[1.1] tracking-tighter">
+          {/* RIGHT */}
+          <div className="space-y-10">
+            {/* TITLE */}
+            <div>
+              
+
+              <h1 className="mt-4 text-[36px]  leading-[1.08] tracking-tight text-slate-950 md:text-[45px]">
                 {product.name}
               </h1>
-              <div className="flex items-center gap-6 pt-2">
-                <span className="text-[32px] md:text-[40px] font-black text-slate-950 tracking-tighter">
-                  ${parseFloat(product.price).toLocaleString()}
-                </span>
-                <div className="flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 rounded-full border border-green-100">
-                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                   <span className="text-[10px] font-black uppercase tracking-widest">In Stock</span>
-                </div>
+
+              <div className="mt-6 flex flex-wrap items-center gap-5">
+                <h2 className="text-[32px]  leading-none tracking-tight text-slate-950 md:text-[40px]">
+                  $
+                  {parseFloat(product.price).toLocaleString()}
+                </h2>
+
+                
               </div>
             </div>
 
-            {/* Structured Overview */}
-            <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 space-y-4">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Technical Overview</h4>
-              <p className="text-slate-600 text-[16px] font-medium leading-relaxed">
+            {/* DESCRIPTION */}
+            <div className="bg-white p-8 shadow-[0_18px_55px_rgba(15,23,42,0.05)] md:p-10">
+              <p className="text-[16px] leading-8 text-slate-600">
                 {product.description ||
-                  'Professional enterprise solution designed for high-volume productivity and seamless integration into your modern office workflow. Every detail is optimized for performance.'}
+                  "Professional printing solution designed for smooth workflow, high-quality output, and reliable daily performance."}
               </p>
             </div>
 
-            {/* Interactive Controls */}
-            <div className="space-y-6 pt-4">
-              <div className="flex flex-col sm:flex-row gap-4">
-                {/* Quantity */}
-                <div className="flex items-center bg-slate-50 rounded-2xl p-1.5 border border-slate-200 h-16 w-full sm:w-auto">
+            {/* ACTIONS */}
+            <div className="space-y-6">
+              <div className="flex flex-col gap-4 sm:flex-row">
+                {/* QUANTITY */}
+                <div className="flex h-16 items-center border border-slate-200 bg-white px-2">
                   <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    aria-label="Decrease quantity"
-                    className="w-12 h-12 flex items-center justify-center bg-white rounded-xl shadow-sm text-slate-900 hover:text-blue-800 transition-colors"
+                    onClick={() =>
+                      setQuantity(Math.max(1, quantity - 1))
+                    }
+                    className="flex h-12 w-12 items-center justify-center text-slate-600 transition hover:bg-slate-100"
                   >
                     <Minus size={18} />
                   </button>
-                  <span className="w-14 text-center text-[16px] font-black text-slate-900">{quantity}</span>
+
+                  <div className="flex w-14 items-center justify-center text-[17px] font-semibold text-slate-950">
+                    {quantity}
+                  </div>
+
                   <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    aria-label="Increase quantity"
-                    className="w-12 h-12 flex items-center justify-center bg-white rounded-xl shadow-sm text-slate-900 hover:text-blue-800 transition-colors"
+                    onClick={() =>
+                      setQuantity(quantity + 1)
+                    }
+                    className="flex h-12 w-12 items-center justify-center text-slate-600 transition hover:bg-slate-100"
                   >
                     <Plus size={18} />
                   </button>
                 </div>
 
-                {/* Purchase Button */}
+                {/* CART */}
                 <button
                   onClick={handleAddToCart}
                   disabled={isAdded}
                   className={cn(
-                    "flex-1 h-16 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-2xl active:scale-95 disabled:opacity-70",
-                    isAdded 
-                      ? "bg-emerald-600 text-white shadow-emerald-900/20" 
-                      : "bg-slate-950 text-white shadow-slate-900/20 hover:bg-blue-800"
+                    "flex h-16 flex-1 items-center justify-center gap-3 text-[14px] font-medium text-white transition",
+                    isAdded
+                      ? "bg-emerald-600"
+                      : "bg-slate-950 hover:bg-blue-700"
                   )}
                 >
                   {isAdded ? (
                     <>
-                      <CheckCircle size={20} /> Item Added
+                      <CheckCircle size={20} />
+                      Added To Cart
                     </>
                   ) : (
                     <>
-                      <ShoppingBag size={20} /> Add to Cart
+                      <ShoppingBag size={20} />
+                      Add To Cart
                     </>
                   )}
                 </button>
               </div>
 
-              {/* Global Support Features */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6">
+              {/* FEATURES */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {[
-                  { icon: Truck, label: 'Express Fleet' },
-                  { icon: ShieldCheck, label: 'Safe Pay' },
-                  { icon: RefreshCcw, label: 'Verified' },
+                  {
+                    icon: Truck,
+                    title: "Fast Delivery",
+                  },
+                  {
+                    icon: ShieldCheck,
+                    title: "Secure Checkout",
+                  },
+                  {
+                    icon: RefreshCcw,
+                    title: "Reliable Products",
+                  },
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className="h-14 rounded-2xl border border-slate-50 bg-white flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400 group"
+                    className="flex h-14 items-center justify-center gap-3 bg-white text-[7px] 2xl:text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-500 shadow-sm"
                   >
-                    <item.icon size={16} className="text-blue-800" />
-                    {item.label}
+                    <item.icon
+                      size={17}
+                      className="text-blue-700"
+                    />
+
+                    {item.title}
                   </div>
                 ))}
               </div>
@@ -285,58 +386,68 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        {/* --- RELATED HARDWARE --- */}
+        {/* RELATED */}
         {relatedProducts.length > 0 && (
-          <div className="mt-32 pt-20 border-t border-slate-100">
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-8">
+          <div className="mt-28 border-t border-slate-100 pt-20">
+            <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
-                <span className="text-blue-800 text-[10px] font-black uppercase tracking-[0.3em] mb-4 block">Fleet Integration</span>
-                <h2 className="text-[34px] md:text-[44px] font-bold text-slate-950 leading-none tracking-tighter">
-                  Related <span className="text-blue-700 italic font-light">Picks.</span>
+                <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-blue-700">
+                  Related Collection
+                </span>
+
+                <h2 className="mt-4 text-[38px] font-semibold tracking-tight text-slate-950 md:text-[52px]">
+                  Similar Products
                 </h2>
               </div>
+
               <Link
                 to="/shop"
-                className="group flex items-center gap-4 text-slate-400 hover:text-blue-800 transition-all font-bold uppercase tracking-widest text-xs"
+                className="inline-flex items-center gap-3 text-[13px] font-semibold uppercase tracking-[0.16em] text-slate-600 transition hover:text-blue-700"
               >
-                View Full Series 
-                <div className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center group-hover:border-blue-800 group-hover:bg-blue-800 group-hover:text-white transition-all">
-                   <ArrowRight size={18} />
-                </div>
+                View All Products
+                <ArrowRight size={16} />
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8">
-              {relatedProducts.slice(0, 5).map((p) => (
-                <motion.div
-                  key={p.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="group flex flex-col"
-                >
-                  <Link to={`/product/${p.slug}`} className="block">
-                    <div className="aspect-square bg-white border border-slate-50 rounded-[2rem] flex items-center justify-center p-6 mb-6 transition-all duration-500 group-hover:border-blue-100 group-hover:shadow-xl group-hover:shadow-blue-900/5 overflow-hidden">
-                      <img
-                        src={getImagePath(p.images)}
-                        alt={p.name}
-                        className="max-h-full max-w-full object-contain transition-transform duration-700 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="px-1">
-                      <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-300 mb-2 block">
-                        {p.brand_name || 'Premium'}
-                      </span>
-                      <h4 className="text-slate-800 text-[15px] font-medium leading-tight line-clamp-2 h-10 mb-4 group-hover:text-blue-800 transition-colors">
-                        {p.name}
-                      </h4>
-                      <p className="text-[20px] font-black text-slate-950 tracking-tighter">
-                        ${parseFloat(p.price).toLocaleString()}
-                      </p>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
+            {/* GRID */}
+            <div className="grid grid-cols-2 gap-5 md:grid-cols-3 xl:grid-cols-5">
+              {relatedProducts
+                .slice(0, 5)
+                .map((p, index) => (
+                  <motion.div
+                    key={p.id}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    viewport={{ once: true }}
+                    className="group bg-white p-4 shadow-[0_10px_35px_rgba(15,23,42,0.04)] transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)]"
+                  >
+                    <Link to={`/product/${p.slug}`}>
+                      <div className="flex aspect-square items-center justify-center p-5">
+                        <img
+                          src={getImagePath(p.images)}
+                          alt={p.name}
+                          className="max-h-full max-w-full object-contain transition duration-500 group-hover:scale-105"
+                        />
+                      </div>
+
+                      <div className="pt-5">
+                       
+
+                        <h3 className="mt-2 line-clamp-2 min-h-[44px] text-[15px] font-medium leading-6 text-slate-900 transition group-hover:text-blue-700">
+                          {p.name}
+                        </h3>
+
+                        <p className="mt-4 text-[24px] font-semibold leading-none text-slate-950">
+                          $
+                          {parseFloat(
+                            p.price
+                          ).toLocaleString()}
+                        </p>
+                      </div>
+                    </Link>
+                  </motion.div>
+                ))}
             </div>
           </div>
         )}
