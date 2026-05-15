@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import SEO from "@/components/SEO";
+import { Link } from "react-router-dom";
+
 
 import ShieldCheck from "lucide-react/dist/esm/icons/shield-check";
 import Truck from "lucide-react/dist/esm/icons/truck";
@@ -9,7 +11,6 @@ import Plus from "lucide-react/dist/esm/icons/plus";
 import Minus from "lucide-react/dist/esm/icons/minus";
 import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
 
-import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "../lib/utils";
 
@@ -78,7 +79,19 @@ const faqs = [
     questions: [
       {
         q: "What is your return policy?",
-        a: "Unused products in original condition may be returned within the allowed return window, subject to our return policy terms.",
+        a: (
+          <>
+            Unused products in original condition may be returned within the
+            allowed return window, subject to our{" "}
+            <Link
+              to="/return-policy"
+              className="font-semibold text-blue-700 hover:underline"
+            >
+              return policy
+            </Link>{" "}
+            terms.
+          </>
+        ),
       },
       {
         q: "What if the machine arrives with issues?",

@@ -10,7 +10,7 @@ export default function ShippingPolicy() {
       lastUpdated="May 14, 2026"
     >
       <p className="lead">
-        This shipping & delivery policy is part of our terms and conditions ("terms") and should be therefore read alongside our main terms: <Link to="/terms-and-conditions">https://laserprintguide.co/terms-and-conditions</Link>.
+        This shipping & delivery policy is part of our terms and conditions ("terms") and should be therefore read alongside our main terms: <Link to="/terms-and-conditions" className="text-blue-700 hover:underline font-semibold">Terms & Conditions</Link>.
       </p>
       <p>
         Please carefully review our shipping & delivery policy when purchasing our products. This policy will apply to any order you place with us.
@@ -37,7 +37,7 @@ export default function ShippingPolicy() {
 
       <h2>Questions about returns?</h2>
       <p>
-        If you have questions about returns, please review our return policy: <Link to="/return-policy">https://laserprintguide.co/return-policy</Link>.
+        If you have questions about returns, please review our return policy: <Link to="/return-policy" className="text-blue-700 hover:underline font-semibold">Return Policy</Link>.
       </p>
 
       <hr />

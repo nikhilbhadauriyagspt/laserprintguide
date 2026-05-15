@@ -1,5 +1,6 @@
 import React from 'react';
 import PolicyLayout from '../layouts/PolicyLayout';
+import { Link } from 'react-router-dom';
 
 export default function PrivacyPolicy() {
   const email = "info@laserprintguide.co";
@@ -119,7 +120,7 @@ export default function PrivacyPolicy() {
       <p>We may use cookies and similar tracking technologies (like web beacons and pixels) to gather information when you interact with our Services. Some online tracking technologies help us maintain the security of our Services and your account, prevent crashes, fix bugs, save your preferences, and assist with basic site functions.</p>
       <p>We also permit third parties and service providers to use online tracking technologies on our Services for analytics and advertising, including to help manage and display advertisements, to tailor advertisements to your interests, or to send abandoned shopping cart reminders. The third parties and service providers use their technology to provide advertising about products and services tailored to your interests which may appear either on our Services or on other websites.</p>
       <p>To the extent these online tracking technologies are deemed to be a "sale"/"sharing" (which includes targeted advertising, as defined under the applicable laws) under applicable US state laws, you can opt out of these online tracking technologies by submitting a request as described below under section "DO UNITED STATES RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?"</p>
-      <p>Specific information about how we use such technologies and how you can refuse certain cookies is set out in our Cookie Notice: <a href="https://laserprintguide.co/cookie-policy">https://laserprintguide.co/cookie-policy</a>.</p>
+      <p>Specific information about how we use such technologies and how you can refuse certain cookies is set out in our Cookie Notice: <Link to="/cookie-policy" className="text-blue-700 hover:underline">Cookie Policy</Link>.</p>
       <h3>Google Analytics</h3>
       <p>We may share your information with Google Analytics to track and analyze the use of the Services. The Google Analytics Advertising Features that we may use include: Google Display Network Impressions Reporting and Google Analytics Demographics and Interests Reporting. To opt out of being tracked by Google Analytics across the Services, visit <a href="https://tools.google.com/dlpage/gaoptout">https://tools.google.com/dlpage/gaoptout</a>. You can opt out of Google Analytics Advertising Features through Ads Settings and Ad Settings for mobile apps. Other opt out means include <a href="http://optout.networkadvertising.org/">http://optout.networkadvertising.org/</a>. For more information on the privacy practices of Google, please visit the Google Privacy & Terms page.</p>
 
@@ -148,7 +149,7 @@ export default function PrivacyPolicy() {
         <li>Contact us using the contact information provided.</li>
       </ul>
       <p>Upon your request to terminate your account, we will deactivate or delete your account and information from our active databases. However, we may retain some information in our files to prevent fraud, troubleshoot problems, assist with any investigations, enforce our legal terms and/or comply with applicable legal requirements.</p>
-      <p><strong>Cookies and similar technologies:</strong> Most Web browsers are set to accept cookies by default. If you prefer, you can usually choose to set your browser to remove cookies and to reject cookies. If you choose to remove cookies or reject cookies, this could affect certain features or services of our Services. For further information, please see our Cookie Notice: <a href="https://laserprintguide.co/cookie-policy">https://laserprintguide.co/cookie-policy</a>.</p>
+      <p><strong>Cookies and similar technologies:</strong> Most Web browsers are set to accept cookies by default. If you prefer, you can usually choose to set your browser to remove cookies and to reject cookies. If you choose to remove cookies or reject cookies, this could affect certain features or services of our Services. For further information, please see our Cookie Notice: <Link to="/cookie-policy" className="text-blue-700 hover:underline">Cookie Policy</Link>.</p>
       <p>If you have questions or comments about your privacy rights, you may email us at {emailLink}.</p>
 
       <h2 className="text-xl font-bold text-slate-900">10. Controls for do-not-track features</h2>

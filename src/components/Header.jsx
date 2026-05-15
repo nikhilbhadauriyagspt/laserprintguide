@@ -329,6 +329,7 @@ export default function Header() {
 
             <button
               onClick={() => navigate(user ? "/profile" : "/login")}
+              aria-label={user ? "View Profile" : "Login or Signup"}
               className="hidden h-11 w-11 items-center justify-center bg-slate-50 text-slate-600 transition hover:bg-blue-50 hover:text-blue-700 sm:flex"
             >
               <User size={19} />
@@ -336,6 +337,7 @@ export default function Header() {
 
             <Link
               to="/wishlist"
+              aria-label="View Wishlist"
               className="relative flex h-11 w-11 items-center justify-center bg-slate-50 text-slate-600 transition hover:bg-blue-50 hover:text-blue-700"
             >
               <Heart
@@ -354,6 +356,7 @@ export default function Header() {
 
             <button
               onClick={openCartDrawer}
+              aria-label="Open Shopping Cart"
               className="relative flex h-11 w-11 items-center justify-center bg-slate-950 text-white transition hover:bg-blue-700"
             >
               <ShoppingBag size={19} />

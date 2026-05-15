@@ -14,7 +14,7 @@ export default function CookiePolicy() {
         ("company," "we," "us," or "our") uses cookies and similar technologies when you visit our website: <a href="https://laserprintguide.co/">https://laserprintguide.co/</a>
       </p>
       <p>
-        This policy should be read together with our <Link to="/privacy-policy">Privacy policy</Link> and <Link to="/terms-and-conditions">Terms and conditions</Link>.
+        This policy should be read together with our <Link to="/privacy-policy" className="text-blue-700 hover:underline font-semibold">Privacy Policy</Link> and <Link to="/terms-and-conditions" className="text-blue-700 hover:underline font-semibold">Terms & Conditions</Link>.
       </p>
 
       <h2>1. What are cookies?</h2>
@@ -90,7 +90,9 @@ export default function CookiePolicy() {
       <div className="bg-gray-50 p-8 rounded-xl border border-gray-100 my-8 not-prose">
         <address className="not-italic text-slate-700 font-bold leading-relaxed space-y-1">
           <p className="text-slate-900">Laser Print Guide</p>
-          <p className="pt-4 text-black font-bold">info@laserprintguide.co</p>
+          <p className="pt-4 text-black font-bold">
+            <a href="mailto:info@laserprintguide.co" className="hover:text-blue-700 transition-colors">info@laserprintguide.co</a>
+          </p>
         </address>
       </div>
     </PolicyLayout>
